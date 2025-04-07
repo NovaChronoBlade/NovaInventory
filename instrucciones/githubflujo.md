@@ -4,81 +4,6 @@ Este documento describe el flujo de trabajo en Git para el desarrollo del proyec
 
 ---
 
-## 🛠 Configuración Inicial en Git
-
-### 1️⃣ Inicializar el repositorio (si aún no lo has hecho)
-```bash
-git init
-git remote add origin <URL_DEL_REPOSITORIO>
-```
-
-### 2️⃣ Crear y subir la rama `develop`
-```bash
-git branch develop
-git checkout develop
-git push origin develop
-```
-
-### 3️⃣ Proteger la Rama `main`
-En **GitHub/GitLab/Bitbucket**:
-1. Ve a **Settings → Branches → Branch protection rules**.
-2. Agrega `main` y activa:
-   - ✅ Requerir revisión de Pull Requests antes de fusionar.
-   - ✅ Prohibir push directo a `main`.
-   - ✅ Permitir fusiones solo desde `develop`.
-
-Opcionalmente, puedes hacer lo mismo con `develop`, permitiendo solo merges desde `feature/*`.
-
----
-
-## 📌 Estructura de Ramas
-
-Para mantener un código organizado y evitar cambios accidentales en `main`, usamos las siguientes ramas:
-
-- **`main`** → Rama principal protegida. Solo se actualiza con cambios aprobados.
-- **`develop`** → Rama de integración donde se combinan nuevas funciones antes de pasar a `main`.
-- **`feature/nombre-de-la-funcionalidad`** → Ramas para desarrollar nuevas características.
-- **`bugfix/nombre-del-arreglo`** → Ramas para corregir errores detectados en `develop`.
-- **`hotfix/nombre-del-fix`** → Ramas para corregir errores críticos en `main`.
-
----
-
-## 🔄 Flujo de Trabajo en Ramas
-
-### **Crear una nueva rama de funcionalidad**
-```bash
-git checkout develop
-git checkout -b feature/nueva-funcion
-git push origin feature/nueva-funcion
-```
-
-### **Crear una rama para corregir errores en `develop`**
-```bash
-git checkout develop
-git checkout -b bugfix/error-en-x
-git push origin bugfix/error-en-x
-```
-
-### **Crear una rama para corregir errores críticos en `main`**
-```bash
-git checkout main
-git checkout -b hotfix/bug-critico
-git push origin hotfix/bug-critico
-```
-
-### **Enviar cambios a la rama remota**
-```bash
-git add .
-git commit -m "feat: descripción del cambio"
-git push origin feature/nueva-funcion
-```
-
-### **Actualizar `develop` y `main`**
-1. **Crear un Pull Request (PR)** de `feature/nueva-funcion` → `develop`.
-2. Una vez aprobado, hacer merge de `develop` → `main`.
-
----
-
 ## ✅ Buenas Prácticas en Commits
 
 ### Formato de Commits
@@ -117,7 +42,7 @@ git commit -m "fix: corregir error de stock negativo"
    ```
 4. **Enviar la rama al repositorio**
    ```bash
-   git push origin feature/nueva-funcion
+   git push origin develop
    ```
 5. **Abrir un Pull Request en GitHub/GitLab y solicitar revisión.**
 
