@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
+    "dev": "nodemon --watch src --ext ts --exec \"npx ts-node src/server.ts\"",
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint . --ext .ts --fix",
     "test": "jest --coverage"
-  },
+  }
+  ,
   "keywords": [],
   "author": "",
   "license": "ISC",
