@@ -3,7 +3,8 @@ import { config } from "dotenv";
 config();
 
 import { DataSource } from "typeorm";
-// import { User } from './entity/User'
+import { User } from "./models/User.entity";
+
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  entities: [],
+  entities: [User],
   synchronize: true,
   logging: false,
 });
