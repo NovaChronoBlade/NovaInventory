@@ -9,8 +9,8 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "enum", enum: Role, default: Role.VENDOR })
-  rol: Role;
+  @Column({ type: "text", default: Role.VENDOR })
+  rol: Role;  
 
   @Column({ unique: true, nullable: false })
   cedula: number;
