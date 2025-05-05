@@ -3,34 +3,30 @@ import { Proveedor } from "../models/Proveedor.entity";
 import { IProveedorRepository } from "./interfaces/IProveedorRepository";
 
 export class ProveedorRepository implements IProveedorRepository {
-  private proveedorRepository = AppDataSource.getRepository(Proveedor);
+  private readonly repository = AppDataSource.getRepository(Proveedor);
 
   async save(proveedor: Proveedor): Promise<Proveedor> {
-    return await this.proveedorRepository.save(proveedor);
+    return this.repository.save(proveedor);
   }
 
   async findById(id: number): Promise<Proveedor | null> {
-    return await this.proveedorRepository.findOne({
+    return this.repository.findOne({
       where: { id },
       relations: ["productos"],
     });
   }
 
   async findAll(): Promise<Proveedor[]> {
-    return await this.proveedorRepository.find({
+    return this.repository.find({
       relations: ["productos"],
     });
   }
 
-  async update(
-    id: number,
-    proveedor: Partial<Proveedor>
-  ): Promise<Proveedor | null> {
-    const existingProveedor = await this.findById(id);
-    if (!existingProveedor) {
-      return null;
-    }
-    const updatedProveedor = { ...existingProveedor, ...proveedor };
-    return await this.proveedorRepository.save(updatedProveedor);
+  async update(id: number, proveedor: Partial<Proveedor>): Promise<Proveedor | null> {
+    const existing = await this.findById(id);
+    if (!existing) return null;
+
+    const updated = this.repository.merge(existing, proveedor);
+    return this.repository.save(updated);
   }
 }
