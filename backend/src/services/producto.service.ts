@@ -5,21 +5,21 @@ export class ProductoService {
   constructor(private readonly productoRepository: IProductoRepository) {}
 
   async create(producto: Producto): Promise<Producto> {
-    return await this.productoRepository.save(producto);
+    return this.productoRepository.save(producto);
   }
 
   async findById(id: number): Promise<Producto | null> {
-    return await this.productoRepository.findById(id);
+    return this.productoRepository.findById(id);
   }
 
   async findAll(): Promise<Producto[]> {
-    return await this.productoRepository.findAll();
+    return this.productoRepository.findAll();
   }
 
   async update(
     id: number,
     producto: Partial<Producto>
   ): Promise<Producto | null> {
-    return await this.productoRepository.update(id, producto);
+    return this.productoRepository.update(id, producto);
   }
 }

@@ -3,21 +3,21 @@ import { Producto } from "../models/Producto.entity";
 import { IProductoRepository } from "./interfaces/IProductoRepository";
 
 export class ProductoRepository implements IProductoRepository {
-  private productoRepository = AppDataSource.getRepository(Producto);
+  private readonly productoRepository = AppDataSource.getRepository(Producto);
 
   async save(producto: Producto): Promise<Producto> {
-    return await this.productoRepository.save(producto);
+    return this.productoRepository.save(producto);
   }
 
   async findById(id: number): Promise<Producto | null> {
-    return await this.productoRepository.findOne({
+    return this.productoRepository.findOne({
       where: { id },
       relations: ["proveedor", "estante"],
     });
   }
 
   async findAll(): Promise<Producto[]> {
-    return await this.productoRepository.find({
+    return this.productoRepository.find({
       relations: ["proveedor", "estante"],
     });
   }
@@ -26,11 +26,11 @@ export class ProductoRepository implements IProductoRepository {
     id: number,
     producto: Partial<Producto>
   ): Promise<Producto | null> {
-    const existingProducto = await this.findById(id);
+    const existingProducto = this.findById(id);
     if (!existingProducto) {
       return null;
     }
     const updatedProducto = { ...existingProducto, ...producto };
-    return await this.productoRepository.save(updatedProducto);
+    return this.productoRepository.save(updatedProducto);
   }
 }

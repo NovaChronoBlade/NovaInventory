@@ -5,7 +5,7 @@ import { ProductoRepository } from "../repositories/producto.repository";
 const productoService = new ProductoService(new ProductoRepository());
 
 export class ProductoController {
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<void> {
     try {
       const producto = await productoService.create(req.body);
       res.status(201).json(producto);
@@ -14,11 +14,11 @@ export class ProductoController {
     }
   }
 
-  async findById(req: Request, res: Response) {
+  async findById(req: Request, res: Response): Promise<void> {
     try {
       const producto = await productoService.findById(Number(req.params.id));
       if (!producto) {
-        return res.status(404).json({ error: "Producto not found" });
+        res.status(404).json({ error: "Producto not found" });
       }
       res.json(producto);
     } catch (error) {
@@ -26,7 +26,7 @@ export class ProductoController {
     }
   }
 
-  async findAll(req: Request, res: Response) {
+  async findAll(req: Request, res: Response): Promise<void> {
     try {
       const productos = await productoService.findAll();
       res.json(productos);
@@ -34,14 +34,14 @@ export class ProductoController {
       res.status(500).json({ error: "Error fetching productos" });
     }
   }
-  async update(req: Request, res: Response) {
+  async update(req: Request, res: Response): Promise<void> {
     try {
       const producto = await productoService.update(
         Number(req.params.id),
         req.body
       );
       if (!producto) {
-        return res.status(404).json({ error: "Producto not found" });
+        res.status(404).json({ error: "Producto not found" });
       }
       res.json(producto);
     } catch (error) {
