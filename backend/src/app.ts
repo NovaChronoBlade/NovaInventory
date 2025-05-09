@@ -16,10 +16,5 @@ app.use("/api/estantes", estanteRouter);
 
 app.use("/api/auth", authRouter);
 
-app.get("/camilo", (req, res) => {
-  res.send("Hello World!");
-});
-app.get("/santiago", (req, res) => {
-  res.send("new love!");
-});
+// Removed arbitrary endpoints '/camilo' and '/santiago'.
 export default app;
