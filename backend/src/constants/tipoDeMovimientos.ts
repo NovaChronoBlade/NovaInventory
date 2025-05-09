@@ -1,0 +1,10 @@
+export enum TipoDeMovimiento {
+  ENTRADA = "ENTRADA",
+  SALIDA = "SALIDA",
+  AJUSTE = "AJUSTE",
+  TRANSFERENCIA = "TRANSFERENCIA",
+  DEVOLUCION = "DEVOLUCION",
+  COMPRA = "COMPRA",
+  VENTA = "VENTA",
+  OTRO = "OTRO",
+}
