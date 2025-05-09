@@ -20,6 +20,6 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 
     next();
   } catch (err) {
-    res.status(401).send("Por favor auntentiquese primero");
+    res.status(401).send("Por favor autentíquese primero");
   }
 };
