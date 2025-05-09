@@ -18,6 +18,7 @@ lerna-debug.log*
 turbo-debug.log*
 .cache/
 .vscode/
+backend/coverage/
 
 # Compilación de TypeScript
 *.tsbuildinfo
@@ -32,3 +33,4 @@ turbo-debug.log*
 *.swp
 *.swo
 public/build/
+
