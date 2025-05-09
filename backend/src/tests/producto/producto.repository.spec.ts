@@ -6,6 +6,7 @@ import { Estante } from "../../models/Estante.entity";
 jest.mock("../../repositories/producto.repository");
 
 describe("ProductoRepository", () => {
+  // Configuración inicial para las pruebas
   let productoRepository: jest.Mocked<ProductoRepository>;
 
   const productoMock: Producto = {
@@ -23,11 +24,13 @@ describe("ProductoRepository", () => {
   };
 
   beforeEach(() => {
+    // Inicializamos el repositorio antes de cada prueba
     productoRepository =
       new ProductoRepository() as jest.Mocked<ProductoRepository>;
   });
 
   it("debería guardar un nuevo producto", async () => {
+    // Prueba para verificar que el repositorio puede guardar un producto correctamente
     productoRepository.save.mockResolvedValue(productoMock);
 
     const result = await productoRepository.save(productoMock);
@@ -55,6 +58,7 @@ describe("ProductoRepository", () => {
   });
 
   it("debería actualizar un producto", async () => {
+    // Prueba para verificar que el repositorio puede actualizar un producto correctamente
     const updateData = { nombre: "Producto actualizado" };
     const updatedProducto = { ...productoMock, ...updateData };
 
@@ -65,12 +69,4 @@ describe("ProductoRepository", () => {
     expect(result).toEqual(updatedProducto);
     expect(productoRepository.update).toHaveBeenCalledWith(1, updateData);
   });
-
-  //   it("debería eliminar (soft delete) un producto", async () => {
-  //     productoRepository.delete = jest.fn().mockResolvedValue(undefined);
-
-  //     await productoRepository.delete(1);
-
-  //     expect(productoRepository.delete).toHaveBeenCalledWith(1);
-  //   });
 });

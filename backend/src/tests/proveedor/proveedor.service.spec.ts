@@ -3,11 +3,12 @@ import { ProveedorRepository } from "../../repositories/proveedor.repository";
 import { Proveedor } from "../../models/Proveedor.entity";
 
 describe("ProveedorService", () => {
+  // Configuración inicial para las pruebas
   let proveedorService: ProveedorService;
   let proveedorRepository: jest.Mocked<ProveedorRepository>;
 
   beforeEach(() => {
-    // Mockeamos el repositorio
+    // Mockeamos el repositorio para simular su comportamiento sin interactuar con la base de datos real
     proveedorRepository = {
       save: jest.fn(),
       findById: jest.fn(),
@@ -19,6 +20,7 @@ describe("ProveedorService", () => {
   });
 
   it("deberia crear un nuevo proveedor", async () => {
+    // Prueba para verificar que el servicio puede crear un proveedor correctamente
     const proveedor: Proveedor = {
       id: 1,
       nombre: "Proveedor 1",
@@ -134,6 +136,7 @@ describe("ProveedorService", () => {
   });
 
   it("debería devolver nulo al actualizar un proveedor que no existe", async () => {
+    // Prueba para verificar que el servicio maneja correctamente la actualización de un proveedor inexistente
     proveedorRepository.update.mockResolvedValue(null);
 
     const result = await proveedorService.update(999, {

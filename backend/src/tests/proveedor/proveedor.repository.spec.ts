@@ -4,6 +4,7 @@ import { Proveedor } from "../../../src/models/Proveedor.entity";
 jest.mock("../../../src/repositories/proveedor.repository");
 
 describe("ProveedorRepository", () => {
+  // Configuración inicial para las pruebas
   let proveedorRepository: ProveedorRepository;
 
   const proveedorMook: Proveedor = {
@@ -20,10 +21,12 @@ describe("ProveedorRepository", () => {
   };
 
   beforeEach(() => {
+    // Inicializamos el repositorio antes de cada prueba
     proveedorRepository = new ProveedorRepository();
   });
 
   it("Debería salvar a un nuevo proveedor", async () => {
+    // Prueba para verificar que el repositorio puede guardar un proveedor correctamente
     proveedorRepository.save = jest.fn().mockResolvedValue(proveedorMook);
 
     const result = await proveedorRepository.save(proveedorMook);
@@ -42,6 +45,7 @@ describe("ProveedorRepository", () => {
   });
 
   it("Debe devolver una matriz vacía si no se encuentran proveedores", async () => {
+    // Prueba para verificar que el repositorio maneja correctamente el caso donde no hay proveedores
     proveedorRepository.findAll = jest.fn().mockResolvedValue([]);
 
     const result = await proveedorRepository.findAll();

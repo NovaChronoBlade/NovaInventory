@@ -5,6 +5,10 @@ config();
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
+/**
+ * Envía una alerta de stock a través de Telegram.
+ * @param productoNombre - Nombre del producto que está sin stock.
+ */
 export async function enviarAlertaStock(productoNombre: string) {
   if (!BOT_TOKEN || !CHAT_ID) {
     console.error("Faltan las credenciales de Telegram");

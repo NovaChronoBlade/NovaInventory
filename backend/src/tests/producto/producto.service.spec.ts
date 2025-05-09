@@ -5,6 +5,7 @@ import { Proveedor } from "../../models/Proveedor.entity";
 import { Estante } from "../../models/Estante.entity";
 
 describe("ProductoService", () => {
+  // Configuración inicial para las pruebas
   let productoService: ProductoService;
   let productoRepository: jest.Mocked<ProductoRepository>;
 
@@ -23,6 +24,7 @@ describe("ProductoService", () => {
   };
 
   beforeEach(() => {
+    // Mockeamos el repositorio para simular su comportamiento sin interactuar con la base de datos real
     productoRepository = {
       save: jest.fn(),
       findById: jest.fn(),
@@ -34,6 +36,7 @@ describe("ProductoService", () => {
   });
 
   it("debería crear un nuevo producto", async () => {
+    // Prueba para verificar que el servicio puede crear un producto correctamente
     productoRepository.save.mockResolvedValue(productoMock);
 
     const result = await productoService.create(productoMock);
@@ -50,6 +53,7 @@ describe("ProductoService", () => {
     expect(productoRepository.findById).toHaveBeenCalledWith(1);
     expect(result).toEqual(productoMock);
   });
+
   it("debería retornar nulo al al encontrar un producto por id que no existe", async () => {
     productoRepository.findById.mockResolvedValue(null);
 
@@ -59,24 +63,25 @@ describe("ProductoService", () => {
     expect(result).toBeNull();
   });
 
-    it("debería retornar todos los productos", async () => {
-        productoRepository.findAll.mockResolvedValue([productoMock]);
-    
-        const result = await productoService.findAll();
-    
-        expect(result).toEqual([productoMock]);
-        expect(productoRepository.findAll).toHaveBeenCalledTimes(1);
-    });
+  it("debería retornar todos los productos", async () => {
+    productoRepository.findAll.mockResolvedValue([productoMock]);
 
-    it("debería actualizar un producto", async () => {
-        const updateData = { nombre: "Producto actualizado" };
-        const updatedProducto = { ...productoMock, ...updateData };
-    
-        productoRepository.update.mockResolvedValue(updatedProducto);
-    
-        const result = await productoService.update(1, updateData);
-    
-        expect(result).toEqual(updatedProducto);
-        expect(productoRepository.update).toHaveBeenCalledWith(1, updateData);
-    });
+    const result = await productoService.findAll();
+
+    expect(result).toEqual([productoMock]);
+    expect(productoRepository.findAll).toHaveBeenCalledTimes(1);
+  });
+
+  it("debería actualizar un producto", async () => {
+    // Prueba para verificar que el servicio puede actualizar un producto correctamente
+    const updateData = { nombre: "Producto actualizado" };
+    const updatedProducto = { ...productoMock, ...updateData };
+
+    productoRepository.update.mockResolvedValue(updatedProducto);
+
+    const result = await productoService.update(1, updateData);
+
+    expect(result).toEqual(updatedProducto);
+    expect(productoRepository.update).toHaveBeenCalledWith(1, updateData);
+  });
 });
