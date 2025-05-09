@@ -1,7 +1,8 @@
 import express from "express";
 import productoRouter from "./routes/producto.routes";
 import proveedorRouter from "./routes/proveedor.routes";
-import estanteRouter from "./routes/estante.routes"; // Assuming you have a similar router for estantes
+import estanteRouter from "./routes/estante.routes";
+import authRouter from "./routes/user.routes";
 
 const app = express();
 
@@ -11,8 +12,9 @@ app.use(express.json());
 // Routes
 app.use("/api/proveedores", proveedorRouter);
 app.use("/api/productos", productoRouter);
-app.use("/api/estantes", estanteRouter); // Assuming you have a similar router for estantes
+app.use("/api/estantes", estanteRouter);
 
+app.use("/api/auth", authRouter);
 
 app.get("/camilo", (req, res) => {
   res.send("Hello World!");
