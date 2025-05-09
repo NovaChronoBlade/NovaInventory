@@ -1,7 +1,11 @@
 import { IProductoRepository } from "../repositories/interfaces/IProductoRepository";
 import { Producto } from "../models/Producto.entity";
+import { StockAlertService } from "./stockAlert.service";
 
 export class ProductoService {
+  private readonly stockAlertService: StockAlertService =
+    new StockAlertService();
+
   constructor(private readonly productoRepository: IProductoRepository) {}
 
   async create(producto: Producto): Promise<Producto> {
@@ -20,6 +24,12 @@ export class ProductoService {
     id: number,
     producto: Partial<Producto>
   ): Promise<Producto | null> {
-    return this.productoRepository.update(id, producto);
+    const updatedProducto = await this.productoRepository.update(id, producto);
+
+    if (updatedProducto && updatedProducto.cantidad === 0) {
+      await this.stockAlertService.sendStockAlert(updatedProducto.nombre);
+    }
+
+    return updatedProducto;
   }
 }

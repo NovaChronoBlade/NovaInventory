@@ -26,11 +26,14 @@ export class ProductoRepository implements IProductoRepository {
     id: number,
     producto: Partial<Producto>
   ): Promise<Producto | null> {
-    const existingProducto = this.findById(id);
+    const existingProducto = await this.findById(id);
+
     if (!existingProducto) {
       return null;
     }
-    const updatedProducto = { ...existingProducto, ...producto };
-    return this.productoRepository.save(updatedProducto);
+
+    Object.assign(existingProducto, producto);
+
+    return await this.productoRepository.save(existingProducto);
   }
 }

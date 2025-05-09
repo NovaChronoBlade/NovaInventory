@@ -45,6 +45,7 @@ export class ProductoController {
       }
       res.json(producto);
     } catch (error) {
+      console.error("Error updating producto:", error);
       res.status(500).json({ error: "Error updating producto" });
     }
   }
