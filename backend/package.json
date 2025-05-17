@@ -23,7 +23,8 @@
     "mysql2": "^3.14.0",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.22"
+    "typeorm": "^0.3.22",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",

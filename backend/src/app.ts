@@ -3,6 +3,7 @@ import productoRouter from "./routes/producto.routes";
 import proveedorRouter from "./routes/proveedor.routes";
 import estanteRouter from "./routes/estante.routes";
 import authRouter from "./routes/user.routes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.use("/api/estantes", estanteRouter);
 
 app.use("/api/auth", authRouter);
 
-// Removed arbitrary endpoints '/camilo' and '/santiago'.
+// Error handling middleware
+app.use(errorHandler);
+
 export default app;

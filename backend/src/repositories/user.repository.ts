@@ -12,4 +12,8 @@ export class UserRepository implements IUserRepository {
   async findByEmail(email: string): Promise<User | null> {
     return this.repository.findOneBy({ email });
   }
+
+  async findByCedula(cedula: number): Promise<User | null> {
+    return this.repository.findOneBy({ cedula });
+  }
 }
